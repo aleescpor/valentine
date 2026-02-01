@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine 💖</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background: #ccc;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box" id="content">
+    <h1>Hey ❤️</h1>
+    <p>I have a very important question for you…</p>
+    <button onclick="next()">Continue 👉</button>
+  </div>
+
+  <button id="no">No 🙄</button>
+
+  <script>
+    let step = 0;
+    const content = document.getElementById("content");
+    const noBtn = document.getElementById("no");
+
+    noBtn.style.display = "none";
+
+    function next() {
+      step++;
+      if (step === 1) {
+        content.innerHTML = `
+          <h1>Will you be my Valentine? 💘</h1>
+          <button id="yes" onclick="yes()">YES 💖</button>
+        `;
+        noBtn.style.display = "block";
+        moveNo();
+      }
+    }
+
+    function moveNo() {
+      noBtn.style.top = Math.random() * 80 + "%";
+      noBtn.style.left = Math.random() * 80 + "%";
+    }
+
+    noBtn.addEventListener("mouseover", moveNo);
+
+    function yes() {
+      content.innerHTML = `
+        <h1>YAAAAAY 🥰</h1>
+        <p>You just made me the happiest person 💕</p>
+        <p>Happy Valentine’s Day ❤️</p>
+      `;
+      noBtn.style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
