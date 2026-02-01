@@ -23,6 +23,7 @@ body {
   border-radius: 20px;
   width: 330px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  z-index: 2;
 }
 
 button {
@@ -42,10 +43,27 @@ button {
 #no {
   background: #cfcfcf;
   position: absolute;
+  z-index: 2;
 }
 
+/* Frog rain */
 .frog {
-  font-size: 40px;
+  position: absolute;
+  top: -50px;
+  font-size: 30px;
+  animation: fall linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+img {
+  width: 200px;
+  border-radius: 15px;
 }
 </style>
 </head>
@@ -83,8 +101,7 @@ function next() {
 
   if (step === 2) {
     box.innerHTML = `
-      <h2>Too late 😌</h2>
-      <p>No escape now.</p>
+      <h2>No escape now 😌</h2>
       <p>Lo siento 😇</p>
       <button id="yes" onclick="next()">Continue</button>
     `;
@@ -92,51 +109,35 @@ function next() {
 
   if (step === 3) {
     box.innerHTML = `
-      <h2>Quick memory 💭</h2>
-      <p>Do you remember December 7th?</p>
-      <p>Winter Formal ❄️💃</p>
-      <button id="yes" onclick="next()">Of course 💖</button>
+      <h2>December 7th ❄️</h2>
+      <p>Winter Formal 💃</p>
+      <p>The start of us 💖</p>
+      <button id="yes" onclick="next()">Aww 🥰</button>
     `;
   }
 
   if (step === 4) {
     box.innerHTML = `
-      <h2>Correct ✅</h2>
-      <p>That was the start of something really special.</p>
-      <button id="yes" onclick="next()">Next 🥰</button>
-    `;
-  }
-
-  if (step === 5) {
-    box.innerHTML = `
-      <h2>Very serious test 📝</h2>
+      <h2>Serious test 📝</h2>
       <p>Do you like frogs? 🐸</p>
       <button id="yes" onclick="next()">YES 🐸💚</button>
     `;
   }
 
-  if (step === 6) {
+  if (step === 5) {
+    startFrogRain();
     box.innerHTML = `
-      <h2>EXCELLENT ANSWER 🐸</h2>
-      <p class="frog">🐸🐸🐸</p>
-      <p>Spanish bonus:</p>
-      <p><i>Eres increíble 💚</i></p>
+      <h2>Correct answer 🐸💚</h2>
+      <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="frog gif">
+      <p>Eres increíble 💕</p>
       <button id="yes" onclick="next()">Continue</button>
     `;
   }
 
-  if (step === 7) {
-    box.innerHTML = `
-      <h2>One last thing…</h2>
-      <p>This is very important.</p>
-      <button id="yes" onclick="next()">Okay 😳</button>
-    `;
-  }
-
-  if (step === 8) {
+  if (step === 6) {
     box.innerHTML = `
       <h1>Will you be my Valentine, Bella? 💖</h1>
-      <p>Officially. Legally. Frog-approved 🐸</p>
+      <p>Frog approved 🐸</p>
       <button id="yes" onclick="final()">YES 💘</button>
     `;
     moveNo();
@@ -151,27 +152,34 @@ function moveNo() {
 noBtn.addEventListener("mouseover", () => {
   noLevel++;
   moveNo();
-
   if (noLevel === 1) noBtn.innerText = "Nope 😐";
   if (noLevel === 2) noBtn.innerText = "Wrong choice 🙃";
-  if (noLevel === 3) noBtn.innerText = "Think again 🤨";
-  if (noLevel === 4) noBtn.innerText = "Bella pls 😭";
-  if (noLevel === 5) noBtn.innerText = "🐸 says NO is illegal";
-  if (noLevel > 6) noBtn.style.display = "none";
+  if (noLevel === 3) noBtn.innerText = "Bella pls 😭";
+  if (noLevel === 4) noBtn.style.display = "none";
 });
 
 function final() {
   box.innerHTML = `
     <h1>YAAAAAY 🥰</h1>
-    <p>You just made me very very happy 💕</p>
-    <p>Feliz San Valentín, Bella ❤️</p>
-    <p class="frog">🐸💖🐸</p>
+    <p>Happy Valentine’s Day, Bella ❤️</p>
+    <p>🐸💖🐸</p>
   `;
   noBtn.style.display = "none";
+}
+
+function startFrogRain() {
+  for (let i = 0; i < 20; i++) {
+    const frog = document.createElement("div");
+    frog.classList.add("frog");
+    frog.innerText = "🐸";
+    frog.style.left = Math.random() * 100 + "vw";
+    frog.style.animationDuration = (3 + Math.random() * 5) + "s";
+    document.body.appendChild(frog);
+
+    setTimeout(() => frog.remove(), 8000);
+  }
 }
 </script>
 
 </body>
 </html>
-
-
